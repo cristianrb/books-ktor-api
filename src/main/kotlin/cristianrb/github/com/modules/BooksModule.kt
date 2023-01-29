@@ -24,9 +24,10 @@ fun Routing.booksModule() {
         }
 
         get("books") {
-            val title = call.request.queryParameters["title"]
-                ?: throw MissingArgumentException("Title query parameter was not found")
-            val bookResponse = booksController.findBooksContainingTitle(title)
+            val title = call.request.queryParameters["title"] ?: throw MissingArgumentException("Title query parameter was not found")
+            val limit = call.request.queryParameters["limit"] ?: "10"
+            val offset = call.request.queryParameters["offset"] ?: "0"
+            val bookResponse = booksController.findBooksContainingTitle(title, stringToInt(limit), stringToInt(offset))
             call.respond(HttpStatusCode.OK, bookResponse)
         }
 
@@ -64,4 +65,14 @@ private fun stringToLong(idStr: String): Long {
         throw InvalidIdException()
     }
     return id
+}
+
+private fun stringToInt(idStr: String): Int {
+    val num: Int
+    try {
+        num = idStr.toInt()
+    } catch (e: NumberFormatException) {
+        throw InvalidIdException()
+    }
+    return num
 }

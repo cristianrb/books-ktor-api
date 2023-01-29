@@ -10,7 +10,7 @@ import org.koin.core.component.inject
 
 interface BooksRepository {
     suspend fun createBook(book: BookRequest): BookResponse
-    suspend fun findBooksContainingTitle(title: String): List<BookResponse>
+    suspend fun findBooksContainingTitle(title: String, limit: Int, offset: Int): List<BookResponse>
     suspend fun findBookById(id: Long): BookResponse
     suspend fun updateBook(book: BookRequest, id: Long): BookResponse
     suspend fun deleteBookById(id: Long)
@@ -31,11 +31,13 @@ class BooksRepositoryImpl: BooksRepository, KoinComponent {
 
     }
 
-    override suspend fun findBooksContainingTitle(title: String): List<BookResponse> {
+    override suspend fun findBooksContainingTitle(title: String, limit: Int, offset: Int): List<BookResponse> {
         val books = jooqConfiguration.dslContext
             .select(Tables.BOOKS.fields().toList())
             .from(Tables.BOOKS)
             .where(Tables.BOOKS.TITLE.containsIgnoreCase(title))
+            .limit(limit)
+            .offset(offset*limit)
             .fetchInto(BookResponse::class.java)
 
         if (books.isEmpty()) {

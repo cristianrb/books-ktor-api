@@ -9,7 +9,7 @@ import org.koin.core.component.inject
 
 interface BooksController {
     suspend fun createBook(book: BookRequest): BookResponse
-    suspend fun findBooksContainingTitle(title: String): List<BookResponse>
+    suspend fun findBooksContainingTitle(title: String, limit: Int, offset: Int): List<BookResponse>
     suspend fun findBookById(id: Long): BookResponse
     suspend fun updateBook(book: BookRequest, id: Long): BookResponse
     suspend fun deleteBookById(id: Long)
@@ -27,8 +27,8 @@ class BooksControllerImpl : BooksController, KoinComponent {
         return booksService.createBook(book)
     }
 
-    override suspend fun findBooksContainingTitle(title: String): List<BookResponse> {
-        return booksService.findBooksContainingTitle(title)
+    override suspend fun findBooksContainingTitle(title: String, limit: Int, offset: Int): List<BookResponse> {
+        return booksService.findBooksContainingTitle(title, limit, offset)
     }
 
     override suspend fun findBookById(id: Long): BookResponse {
