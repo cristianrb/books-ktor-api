@@ -11,6 +11,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.config.*
 import io.ktor.server.testing.*
 import io.ktor.test.dispatcher.*
@@ -41,6 +42,11 @@ class BooksModuleTest {
                             single { booksController }
                         }
                     )
+                }
+                authentication {
+                    basic {
+                        skipWhen { true }
+                    }
                 }
                 configureRouting()
                 configureSerialization()

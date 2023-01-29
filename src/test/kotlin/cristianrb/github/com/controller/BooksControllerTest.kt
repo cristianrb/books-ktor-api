@@ -23,7 +23,6 @@ class BooksControllerTest {
 
     @BeforeTest
     fun before() {
-        stopKoin()
         startKoin {
             modules(
                 module {
