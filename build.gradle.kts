@@ -63,9 +63,9 @@ dependencies {
 }
 
 flyway {
-    url = "jdbc:postgresql://localhost:5433/booksdb"
-    user = "user"
-    password = "password"
+    user = System.getenv("DB_USERNAME") // user
+    password = System.getenv("DB_PASSWORD") // password
+    url = System.getenv("DB_URL") // "jdbc:postgresql://localhost:5433/booksdb"
 }
 
 jooq {
@@ -74,7 +74,7 @@ jooq {
 
     configurations {
         create("main") {  // name of the jOOQ configuration
-            generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
+            generateSchemaSourceOnCompilation.set(false)  // default (can be omitted)
 
             jooqConfiguration.apply {
                 jdbc.apply {
