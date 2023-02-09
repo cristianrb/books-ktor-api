@@ -21,6 +21,11 @@ class AuthControllerImpl(
             .withAudience(audience)
             .withIssuer(issuer)
             .withClaim("username", user.username)
+            .withClaim("roles", listOf(
+                    "CREATE_BOOKS",
+                    "READ_BOOKS"
+                )
+            )
             .withExpiresAt(Date(System.currentTimeMillis() + 3600000))
             .sign(Algorithm.HMAC256(secret))
     }

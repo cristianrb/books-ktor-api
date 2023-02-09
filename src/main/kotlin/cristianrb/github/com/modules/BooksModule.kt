@@ -1,11 +1,14 @@
 package cristianrb.github.com.modules
 
 import cristianrb.github.com.models.BookRequest
+import cristianrb.github.com.plugins.ApiErrorResponse
+import cristianrb.github.com.plugins.ErrorBody
 import cristianrb.github.com.plugins.InvalidIdException
 import cristianrb.github.com.plugins.MissingArgumentException
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -17,10 +20,19 @@ fun Routing.booksModule() {
 
     authenticate {
         post("books") {
-            val bookRequest = call.receive<BookRequest>()
-            val insertedBook = booksController.createBook(bookRequest)
-            call.respond(HttpStatusCode.Accepted, insertedBook)
-
+            val user = call.principal<JWTPrincipal>()
+            val roles = user?.payload?.getClaim("roles")?.asList(String::class.java)?: emptyList()
+            if (roles.contains("CREATE_BOOKS")) {
+                val bookRequest = call.receive<BookRequest>()
+                val insertedBook = booksController.createBook(bookRequest)
+                call.respond(HttpStatusCode.Accepted, insertedBook)
+            }
+            call.respond(HttpStatusCode.Forbidden, ApiErrorResponse(
+                error = ErrorBody(
+                    message = "Permission denied",
+                    status = "Forbidden"
+                )
+            ))
         }
 
         get("books") {
