@@ -5,18 +5,16 @@ import com.github.cristianrb.tables.records.BooksRecord
 import cristianrb.github.com.models.BookRequest
 import cristianrb.github.com.models.BookResponse
 import cristianrb.github.com.plugins.JooqConfiguration
-import cristianrb.github.com.service.BooksService
-import cristianrb.github.com.service.BooksServiceImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
-import kotlin.test.assertEquals
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BooksRepositoryTest {
 

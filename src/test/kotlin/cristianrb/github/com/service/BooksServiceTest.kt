@@ -2,8 +2,6 @@ package cristianrb.github.com.service
 
 import cristianrb.github.com.models.BookRequest
 import cristianrb.github.com.models.BookResponse
-import cristianrb.github.com.modules.BooksController
-import cristianrb.github.com.modules.BooksControllerImpl
 import cristianrb.github.com.repository.BooksRepository
 import io.mockk.coEvery
 import io.mockk.mockk

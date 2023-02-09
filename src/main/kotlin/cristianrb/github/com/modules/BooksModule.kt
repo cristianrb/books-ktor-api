@@ -26,13 +26,15 @@ fun Routing.booksModule() {
                 val bookRequest = call.receive<BookRequest>()
                 val insertedBook = booksController.createBook(bookRequest)
                 call.respond(HttpStatusCode.Accepted, insertedBook)
+            } else {
+                call.respond(HttpStatusCode.Forbidden, ApiErrorResponse(
+                    error = ErrorBody(
+                        message = "Permission denied",
+                        status = "Forbidden"
+                    )
+                ))
             }
-            call.respond(HttpStatusCode.Forbidden, ApiErrorResponse(
-                error = ErrorBody(
-                    message = "Permission denied",
-                    status = "Forbidden"
-                )
-            ))
+
         }
 
         get("books") {
