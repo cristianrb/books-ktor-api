@@ -1,1 +1,1 @@
-rootProject.name = "cristianrb.github.com.books-ktor-api"
+rootProject.name = "books-ktor-api"

@@ -15,8 +15,12 @@ plugins {
     id("org.flywaydb.flyway") version "9.12.0"
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 group = "cristianrb.github.com"
-version = "0.0.1"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 
@@ -63,9 +67,9 @@ dependencies {
 }
 
 flyway {
-    user = System.getenv("DB_USERNAME") // user
-    password = System.getenv("DB_PASSWORD") // password
-    url = System.getenv("DB_URL") // "jdbc:postgresql://localhost:5433/booksdb"
+    user = System.getenv("PGUSER") // user
+    password = System.getenv("PGPASSWORD") // password
+    url = System.getenv("DATABASE_URL") // "jdbc:postgresql://localhost:5433/booksdb"
 }
 
 jooq {
