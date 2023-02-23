@@ -53,7 +53,7 @@ jobs:
 
       - name: Build code
         run: |
-          ./gradlew build -x test
+          ./gradlew buildFatJar
 
       - name: Stop any gradle daemons
         run: ./gradlew -stop
