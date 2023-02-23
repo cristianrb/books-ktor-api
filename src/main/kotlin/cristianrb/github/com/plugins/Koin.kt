@@ -1,5 +1,6 @@
 package cristianrb.github.com.plugins
 
+import com.zaxxer.hikari.HikariDataSource
 import cristianrb.github.com.modules.AuthController
 import cristianrb.github.com.modules.AuthControllerImpl
 import cristianrb.github.com.modules.BooksController
@@ -11,8 +12,9 @@ import cristianrb.github.com.service.BooksServiceImpl
 import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
+import javax.sql.DataSource
 
-fun Application.configureKoin() {
+fun Application.configureKoin(dataSource: HikariDataSource, dataSourceConfig: DataSourceConfig) {
     val secret = environment.config.property("jwt.secret").getString()
     val issuer = environment.config.property("jwt.issuer").getString()
     val audience = environment.config.property("jwt.audience").getString()
@@ -24,7 +26,7 @@ fun Application.configureKoin() {
                 single<BooksController> { BooksControllerImpl() }
                 single<BooksService> { BooksServiceImpl() }
                 single<BooksRepository> { BooksRepositoryImpl() }
-                single { JooqConfiguration(environment.config) }
+                single { JooqConfiguration(dataSource, dataSourceConfig) }
             }
         )
     }
