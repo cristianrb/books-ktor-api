@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "Main" ]
     paths-ignore:
-      - 'books-ktor-api.jar'
+      - 'books-ktor-api-all.jar'
   pull_request:
     branches: [ "Main" ]
   workflow_dispatch:
@@ -88,7 +88,7 @@ jobs:
         run: |
           git config --global user.name 'Github Action'
           git config --global user.email 'action@github.com'
-          git add books-ktor-api.jar
+          git add books-ktor-api-all.jar
           git commit -m "🚚 | Push jar file️"
           git push origin Main
 
