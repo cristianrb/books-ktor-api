@@ -26,9 +26,11 @@ fun Application.module() {
 }
 
 private fun createDataSourceConfig(applicationConfig: ApplicationConfig) = DataSourceConfig(
-    applicationConfig.property("ktor.datasource.jdbcUrl").getString(),
     applicationConfig.property("ktor.datasource.username").getString(),
     applicationConfig.property("ktor.datasource.password").getString(),
+    applicationConfig.property("ktor.datasource.host").getString(),
+    applicationConfig.property("ktor.datasource.port").getString(),
+    applicationConfig.property("ktor.datasource.database").getString(),
     applicationConfig.property("ktor.datasource.schema").getString()
 )
 
@@ -36,7 +38,7 @@ private fun createDataSource(dataSourceConfig: DataSourceConfig): HikariDataSour
     val hikariConfig = HikariConfig()
     hikariConfig.username = dataSourceConfig.username
     hikariConfig.password = dataSourceConfig.password
-    hikariConfig.jdbcUrl = dataSourceConfig.jdbcUrl
+    hikariConfig.jdbcUrl = "jdbc:postgresql://${dataSourceConfig.host}:${dataSourceConfig.port}/${dataSourceConfig.database}"
     hikariConfig.schema = dataSourceConfig.schema
     hikariConfig.maximumPoolSize = 10
 

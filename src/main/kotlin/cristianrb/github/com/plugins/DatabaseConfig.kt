@@ -12,7 +12,14 @@ import org.jooq.conf.Settings
 import org.jooq.impl.DSL
 import javax.sql.DataSource
 
-data class DataSourceConfig(val jdbcUrl: String, val username: String, val password: String, val schema: String)
+data class DataSourceConfig(
+    val username: String,
+    val password: String,
+    val host: String,
+    val port: String,
+    val database: String,
+    val schema: String
+)
 
 class JooqConfiguration(dataSource: HikariDataSource, dataSourceConfig: DataSourceConfig) {
 
