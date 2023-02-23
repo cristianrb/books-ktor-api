@@ -55,6 +55,13 @@ jobs:
       - name: Stop any gradle daemons
         run: ./gradlew -stop
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: books-ktor-api.jar
+          path: ./build/libs/
+          retention-days: 1
+
   deploy:
     runs-on: ubuntu-latest
     needs: build-and-test
@@ -63,10 +70,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: books-ktor-api.jar
+          path: ./build/libs/
+
       - name: Use Node 18
         uses: actions/setup-node@v1
         with:
-          node-version: 18.x
+          node-version: 18U.x
 
       - name: Install Railway
         run: npm i -g @railway/cli
