@@ -44,6 +44,7 @@ class JooqConfiguration(applicationConfig: ApplicationConfig) {
     }
 
     private fun flywayMigrate(dataSource: DataSource, dataSourceConfig: DataSourceConfig) {
+        println("Migrating...")
         val flyway = Flyway.configure()
             .dataSource(dataSource)
             .schemas(dataSourceConfig.schema)
