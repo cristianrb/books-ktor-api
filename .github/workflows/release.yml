@@ -88,7 +88,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: push-jar-file
     if: success() && github.ref == 'refs/heads/Main'
 
     steps:
