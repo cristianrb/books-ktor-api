@@ -36,7 +36,7 @@ private fun createDataSource(dataSourceConfig: DataSourceConfig): HikariDataSour
     val hikariConfig = HikariConfig()
     hikariConfig.username = dataSourceConfig.username
     hikariConfig.password = dataSourceConfig.password
-    hikariConfig.jdbcUrl = "jdbc:${dataSourceConfig.jdbcUrl}"
+    hikariConfig.jdbcUrl = dataSourceConfig.jdbcUrl
     hikariConfig.schema = dataSourceConfig.schema
     hikariConfig.maximumPoolSize = 10
 
