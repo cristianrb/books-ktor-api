@@ -46,7 +46,6 @@ dependencies {
 
     // Database
     implementation("org.postgresql:postgresql:$postgres_version")
-    implementation("com.h2database:h2:$h2_version")
     implementation("org.flywaydb:flyway-core:9.12.0")
     implementation("org.jooq:jooq:3.17.7")
     jooqGenerator("org.postgresql:postgresql:$postgres_version")
