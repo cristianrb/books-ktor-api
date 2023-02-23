@@ -7,7 +7,7 @@ val koin_ktor : String by project
 
 plugins {
     kotlin("jvm") version "1.8.0"
-    id("io.ktor.plugin") version "2.2.2"
+    id("io.ktor.plugin") version "2.2.3"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
 
     // Database generation
@@ -15,18 +15,11 @@ plugins {
     id("org.flywaydb.flyway") version "9.12.0"
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "cristianrb.github.com.Application"
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
-
-
 
 group = "cristianrb.github.com"
 application {
