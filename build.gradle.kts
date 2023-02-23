@@ -20,6 +20,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "io.ktor.server.netty.EngineMain"
+    }
+}
+
+
+
 group = "cristianrb.github.com"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")

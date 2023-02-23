@@ -3,6 +3,8 @@ name: Release
 on:
   push:
     branches: [ "Main" ]
+    paths-ignore:
+      - 'books-ktor-api.jar'
   pull_request:
     branches: [ "Main" ]
 
