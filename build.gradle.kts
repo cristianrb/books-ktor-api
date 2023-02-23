@@ -22,7 +22,7 @@ java {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "io.ktor.server.netty.EngineMain"
+        attributes["Main-Class"] = "cristianrb.github.com.Application"
     }
 }
 
