@@ -61,7 +61,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: books-ktor-api.jar
+          name: books-ktor-api-all.jar
           path: ./build/libs/
           retention-days: 1
 
@@ -78,11 +78,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: books-ktor-api.jar
+          name: books-ktor-api-all.jar
           path: ./build/libs/
 
       - name: Move jar file
-        run: mv ./build/libs/books-ktor-api.jar .
+        run: mv ./build/libs/books-ktor-api-all.jar .
 
       - name: Git push
         run: |
