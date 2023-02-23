@@ -48,7 +48,9 @@ jobs:
         run: |
           export PGUSER=user
           export PGPASSWORD=password
-          export DATABASE_URL=jdbc:postgresql://localhost:5432/booksdb
+          export PGHOST=localhost
+          export PGPORT=5432
+          export PGDATABASE=booksdb
           ./gradlew test
 
       - name: Build code
