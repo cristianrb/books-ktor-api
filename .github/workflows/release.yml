@@ -71,6 +71,8 @@ jobs:
     if: success() && github.ref == 'refs/heads/Main'
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Flyway migrate
         uses: ./.github/actions/flyway-migrate
         with:
