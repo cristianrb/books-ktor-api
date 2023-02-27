@@ -65,9 +65,22 @@ jobs:
           path: ./build/libs/
           retention-days: 1
 
-  deploy:
+  migrate-db:
     runs-on: ubuntu-latest
     needs: build-and-test
+    if: success() && github.ref == 'refs/heads/Main'
+
+    steps:
+      - name: Flyway migrate
+        uses: ./.github/actions/flyway-migrate
+        with:
+          user: ${{ secrets.DB_USER }}
+          password: ${{ secrets.DB_PASSWORD }}
+          databaseUrl: ${{ secrets.DB_URL }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: migrate-db
     if: success() && github.ref == 'refs/heads/Main'
 
     steps:

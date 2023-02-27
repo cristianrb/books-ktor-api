@@ -1,0 +1,23 @@
+name: 'flyway-migrate'
+description: 'Migrates db with flyway'
+inputs:
+  user:
+    description: "The user to connect to the db"
+    required: true
+  password:
+    description: "The password of the user"
+    required: true
+  databaseUrl:
+    description: "The database url"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Flyway migrate
+      run: |
+        export PGUSER=${{ inputs.user }}
+        export PGPASSWORD=${{ inputs.password }}
+        export DATABASE_URL=${{ inputs.databaseUrl }}
+        ./gradlew flywayMigrate
+        ./gradlew flywayInfo
+      shell: bash

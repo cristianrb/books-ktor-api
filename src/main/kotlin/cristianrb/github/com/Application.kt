@@ -5,8 +5,6 @@ import com.zaxxer.hikari.HikariDataSource
 import cristianrb.github.com.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.config.*
-import org.flywaydb.core.Flyway
-import javax.sql.DataSource
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -15,7 +13,6 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     val dataSourceConfig = createDataSourceConfig(environment.config)
     val dataSource = createDataSource(dataSourceConfig)
-    flywayMigrate(dataSource, dataSourceConfig)
 
     configureKoin(dataSource, dataSourceConfig)
     configureSerialization()
@@ -43,14 +40,4 @@ private fun createDataSource(dataSourceConfig: DataSourceConfig): HikariDataSour
     hikariConfig.maximumPoolSize = 10
 
     return HikariDataSource(hikariConfig)
-}
-
-private fun flywayMigrate(dataSource: DataSource, dataSourceConfig: DataSourceConfig) {
-    println("Migrating...")
-    val flyway = Flyway.configure()
-        .dataSource(dataSource)
-        .schemas(dataSourceConfig.schema)
-        .load()
-
-    flyway.migrate()
 }
